@@ -49,22 +49,26 @@ const scrapeRepo = (call) => {
 	})
 }
 
-const getIgnoreNames = (call) => {
+const searchName = (type, call) => {
 	searchFile(names => {
-		if (names != null) call(names)
-		else scrapeRepo(names => {
-			call(names)
+		if (names != null) {
+			let name = names.filter(name => name.toLowerCase().includes(type.toLowerCase()))[0]
+			if (name) {
+				call(name)
+				return
+			}
+		}
+		scrapeRepo(names => {
+			call(names.filter(name => name.toLowerCase().includes(type.toLowerCase()))[0] || null)
 		})		
 	})
 }
 
-getIgnoreNames(names => {
-	if (names == null) {
-		console.log("Couldn't connect to the gitignore repo")
+searchName(args[2], name => {
+	if (name == null) {
+		console.log("Couldn't find the type you are looking for. Make sure there is no typo.")
 		return
 	}
-
-	let name = names.filter(name => name.toLowerCase().includes(args[2].toLowerCase()))[0]
 	if (name) {
 		printIgnore(name)
 	} else console.log("The .gitignore type you are looking for couldn't be found. Sorry!") 
