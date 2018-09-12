@@ -1,0 +1,20 @@
+{
+  "name": "getignore",
+  "version": "1.0.0",
+  "description": "A tool to get the perfect gitignore for your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "git",
+    "vsc",
+    "gitignore"
+  ],
+  "author": "Arjun Mahishi",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2"
+  }
+}
