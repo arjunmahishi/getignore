@@ -1,5 +1,5 @@
 {
-  "name": "getignore",
+  "name": "getignored",
   "version": "1.0.0",
   "description": "A tool to get the perfect gitignore for your project",
   "main": "index.js",
@@ -16,5 +16,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2"
+  },
+  "bin": {
+    "getignored": "./index.js"
   }
 }
