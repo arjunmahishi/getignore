@@ -16,8 +16,8 @@ getignored <type>
 
 ### Example
 
-- `getignored go`
-- `getignored node`
-- `getignored python`
+- `getignored go > .gitignore`
+- `getignored node > .gitignore`
+- `getignored python > .gitignore`
 
 To see a list of types, go [here](https://github.com/github/gitignore)

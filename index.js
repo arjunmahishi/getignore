@@ -3,6 +3,7 @@
 const axios = require("axios")
 const cheerio = require("cheerio")
 const fs = require("fs")
+const columnify = require("columnify")
 
 args = process.argv
 
@@ -64,12 +65,43 @@ const searchName = (type, call) => {
 	})
 }
 
-searchName(args[2], name => {
-	if (name == null) {
-		console.log("Couldn't find the type you are looking for. Make sure there is no typo.")
-		return
-	}
-	if (name) {
-		printIgnore(name)
-	} else console.log("The .gitignore type you are looking for couldn't be found. Sorry!") 
-})
+const printArray = (arr) => {
+    var newArr = [];
+    while(arr.length) newArr.push(arr.splice(0,6));
+
+	cl = columnify(newArr)
+	console.log(cl.replace(cl.split("\n")[0], ""))
+}
+
+const printTypes = () => {
+	searchFile(names => {
+		if(names) {
+			printArray(names.map(name => name.replace(".gitignore", "")))
+		} else {
+			scrapeRepo(names => {
+				if (names) {
+					printArray(names.map(name => name.replace(".gitignore", "")))
+				} else {
+					console.log("Sorry, couldn't list the available types. Please check your network connection")
+				}
+			})
+		}
+	})
+}
+
+const main = () => {
+	searchName(args[2], name => {
+		if (name == null) {
+			console.log("Couldn't find the type you are looking for. Make sure there is no typo.")
+			return
+		}
+		if (name) {
+			printIgnore(name)
+		} else console.log("The .gitignore type you are looking for couldn't be found. Sorry!") 
+	})
+}
+
+switch(args[2]) {
+	default: main(); break;
+	case "list": printTypes(); break;
+}
